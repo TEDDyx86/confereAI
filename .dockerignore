@@ -6,9 +6,6 @@ __pycache__/
 .git/
 .env
 
-# Ignorar o frontend no Docker do backend
-dashboard/
-
 # Outros
 *.wav
 *.mp3

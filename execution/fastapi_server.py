@@ -58,9 +58,19 @@ async def analyze_audio_endpoint(file: UploadFile = File(...)):
         print(f"Erro na análise: {e}")
         raise e
 
-# Servir arquivos do dashboard e imagens temporárias
+# Garante diretório temporário para o mount não falhar
+if not os.path.exists(".tmp"):
+    os.makedirs(".tmp")
+
+# Servir arquivos do dashboard e imagens temporárias (se existirem)
 app.mount("/tmp", StaticFiles(directory=".tmp"), name="tmp")
-app.mount("/", StaticFiles(directory="dashboard", html=True), name="dashboard")
+
+if os.path.exists("dashboard"):
+    app.mount("/", StaticFiles(directory="dashboard", html=True), name="dashboard")
+else:
+    @app.get("/")
+    async def root_fallback():
+        return {"status": "ConfereAI API Running", "message": "Dashboard directory not found. Please use the Vercel frontend."}
 
 if __name__ == "__main__":
     import uvicorn
