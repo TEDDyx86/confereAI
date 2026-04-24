@@ -8,7 +8,7 @@ import uvicorn
 
 # Importamos nossos módulos de execução
 from execution.feature_extractor import extract_features
-from execution.analyze_audio import analyze_audio
+from execution.inference_wav2vec import run_inference
 
 app = FastAPI(title="ConfereAI Audio Fraud Detection API")
 
@@ -43,19 +43,20 @@ async def analyze_audio_endpoint(file: UploadFile = File(...)):
         # 1. Extração de Imagens (Local)
         features = extract_features(file_path, output_dir=temp_dir)
         
-        # 2. Análise Neural (API de Inferência do Hugging Face - Seu novo motor!)
-        analysis = analyze_audio(file_path)
+        # 2. Inferência Local (Sem depender de API externa!)
+        # Usaremos o modelo "HyperMoon/wav2vec2-base-960h-finetuned-deepfake" que é super estável
+        inference = run_inference(file_path)
         
-        if "error" in analysis:
-            raise Exception(analysis["error"])
+        if "error" in inference:
+            raise Exception(inference["error"])
 
         # 3. Resposta Consolidada
         return AnalysisResult(
             filename=file.filename,
-            fraud_score=analysis.get("fraud_score", 0.0),
-            verdict=analysis.get("verdict", "UNKNOWN"),
+            fraud_score=inference.get("deepfake_probability", 0.0),
+            verdict=inference.get("verdict", "UNKNOWN"),
             spectrogram_url=features.get("spectrogram_path", ""),
-            engine=analysis.get("model_used", "Hugging Face API")
+            engine=inference.get("model", "Local Neural Engine")
         )
     except Exception as e:
         print(f"Erro na análise: {e}")
