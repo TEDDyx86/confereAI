@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConfereAI - Detecção de Fraude por Áudio</title>
+    <meta name="description" content="Plataforma avançada para identificação de deepfakes e vozes clonadas usando IA.">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Outfit:wght@300;600;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="aurora-mesh"></div>
+    
+    <nav>
+        <div class="logo" id="main-logo">
+            <span class="vibrance">CONFERE</span>AI
+        </div>
+        <div class="nav-links">
+            <a href="#how-it-works">Como Funciona</a>
+            <a href="#security">Segurança</a>
+            <button class="btn-primary">Acessar API</button>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero">
+            <h1 class="glitch" data-text="O futuro da segurança de voz">O futuro da segurança de voz</h1>
+            <p>Análise cirúrgica de áudio para identificar manipulações e proteger sua identidade.</p>
+        </section>
+
+        <section class="upload-container">
+            <div class="glass-card" id="drop-zone">
+                <div class="upload-icon">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2v8M12 10l-3-3M12 10l3-3M2 13v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6"/>
+                    </svg>
+                </div>
+                <h3>Arraste seu arquivo de áudio</h3>
+                <p>Suporta WAV, MP3 e FLAC (Máx 10MB)</p>
+                <input type="file" id="audio-input" accept="audio/*" hidden>
+                <button class="btn-secondary" id="select-file-btn">Selecionar Arquivo</button>
+            </div>
+        </section>
+
+        <section class="results-grid" id="results-section" style="display: none;">
+            <div class="glass-card result-main">
+                <div class="status-indicator" id="status-badge">
+                    <span class="pulse"></span>
+                    <span id="verdict-text">PROCESSANDO...</span>
+                </div>
+                <div class="confidence-circle">
+                    <svg viewBox="0 0 36 36" class="circular-chart">
+                        <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                        <path class="circle" id="confidence-path" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                        <text x="18" y="20.35" class="percentage" id="confidence-value">0%</text>
+                    </svg>
+                    <p>Probabilidade de Fraude</p>
+                </div>
+            </div>
+
+            <div class="glass-card spectrogram-view">
+                <h4>Espectrograma de Mel</h4>
+                <div id="spec-container" class="image-placeholder">
+                    <p>Carregando espectrograma...</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 ConfereAI. Desenvolvido para proteção digital máxima.</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
