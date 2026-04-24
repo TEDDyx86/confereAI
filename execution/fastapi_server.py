@@ -6,9 +6,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import uvicorn
 
-# Importamos nossos módulos de execução
-from feature_extractor import extract_features
-from inference_wav2vec import run_inference
+# Importamos nossos módulos de execução usando caminhos absolutos para o deploy
+from execution.feature_extractor import extract_features
+from execution.inference_wav2vec import run_inference
 
 app = FastAPI(title="ConfereAI Audio Fraud Detection API")
 
