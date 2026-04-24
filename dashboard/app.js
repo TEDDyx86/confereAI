@@ -100,12 +100,12 @@ function displayResults(data) {
         confidencePath.setAttribute('stroke-dasharray', `${fraudProb}, 100`);
     }
 
-    // Atualiza Espectrograma
-    if (data.spectrogram_url) {
-        const specName = data.spectrogram_url.split(/[\\/]/).pop();
         const timestamp = new Date().getTime();
         specContainer.innerHTML = `<img src="/tmp/${specName}?t=${timestamp}" alt="Espectrograma de Mel">`;
     }
+
+    // Scroll automático suave para os resultados
+    resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 // Lógica do Modal "Como Funciona" (Overlay)
