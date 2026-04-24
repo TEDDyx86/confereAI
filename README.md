@@ -1,3 +1,12 @@
+---
+title: ConfereAI
+emoji: 🛡️
+colorFrom: indigo
+colorTo: purple
+sdk: docker
+pinned: false
+---
+
 # 🛡️ ConfereAI - Audio Fraud Detection
 
 ConfereAI é uma plataforma de segurança cibernética avançada projetada para identificar **Deepfakes** e **Clonagem de Voz** em tempo real. Utilizando redes neurais transformadoras (Wav2Vec 2.0), o sistema analisa artefatos acústicos invisíveis ao ouvido humano para distinguir voz real de fala sintetizada.
