@@ -1,16 +1,13 @@
 {
   "version": 2,
-  "name": "confereai",
-  "builds": [
+  "rewrites": [
     {
-      "src": "dashboard/**/*",
-      "use": "@vercel/static"
-    }
-  ],
-  "routes": [
+      "source": "/analyze",
+      "destination": "api/index.py"
+    },
     {
-      "src": "/(.*)",
-      "dest": "/dashboard/$1"
+      "source": "/(.*)",
+      "destination": "dashboard/$1"
     }
   ]
 }
