@@ -107,3 +107,37 @@ function displayResults(data) {
         specContainer.innerHTML = `<img src="/tmp/${specName}?t=${timestamp}" alt="Espectrograma de Mel">`;
     }
 }
+
+// Lógica do Modal "Como Funciona" (Overlay)
+const modal = document.getElementById('how-it-works-modal');
+const openBtn = document.getElementById('open-how-it-works');
+const closeBtn = document.getElementById('close-modal');
+
+if (openBtn && modal) {
+    openBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Trava o scroll
+    });
+}
+
+if (closeBtn && modal) {
+    closeBtn.addEventListener('click', () => {
+        modal.classList.remove('active');
+        document.body.style.overflow = 'auto'; // Destrava o scroll
+    });
+
+    // Fechar ao clicar fora do conteúdo
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeBtn.click();
+        }
+    });
+}
+
+// Fechar com a tecla ESC
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal && modal.classList.contains('active')) {
+        closeBtn.click();
+    }
+});

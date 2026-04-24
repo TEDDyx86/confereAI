@@ -7,6 +7,7 @@
     <meta name="description" content="Plataforma avançada para identificação de deepfakes e vozes clonadas usando IA.">
     <link rel="icon" type="image/png" href="assets/logo.png">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="how-it-works.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Outfit:wght@300;600;900&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -18,7 +19,7 @@
             <span>CONFEREAI</span>
         </div>
         <div class="nav-links">
-            <a href="#how-it-works">Como Funciona</a>
+            <a href="#" id="open-how-it-works">Como Funciona</a>
             <a href="#security">Segurança</a>
             <button class="btn-primary">Acessar API</button>
         </div>
@@ -69,47 +70,50 @@
         </section>
     </main>
 
-    <footer>
-        <p>&copy; 2026 ConfereAI. Desenvolvido para proteção digital máxima.</p>
-    </footer>
-
-    <section id="how-it-works" class="info-section">
-        <h2 class="section-title">Como o ConfereAI protege você</h2>
-        <div class="steps-grid">
-            <div class="step-card glass-card">
-                <div class="step-number">01</div>
-                <div class="step-icon">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
-                    </svg>
+    <!-- Modal Como Funciona (Overlay) -->
+    <div id="how-it-works-modal" class="modal-overlay">
+        <div class="modal-content glass-card">
+            <button class="close-modal" id="close-modal">&times;</button>
+            <h2 class="section-title">Como o ConfereAI protege você</h2>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number">01</div>
+                    <div class="step-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+                        </svg>
+                    </div>
+                    <h3>Upload do Áudio</h3>
+                    <p>Nossa plataforma aceita gravações de chamadas, áudios de aplicativos de mensagens e arquivos de voz em diversos formatos.</p>
                 </div>
-                <h3>Upload do Áudio</h3>
-                <p>Nossa plataforma aceita gravações de chamadas, áudios de aplicativos de mensagens e arquivos de voz em diversos formatos.</p>
+
+                <div class="step-card">
+                    <div class="step-number">02</div>
+                    <div class="step-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                        </svg>
+                    </div>
+                    <h3>Análise Espectral</h3>
+                    <p>O motor HyperMoon decompõe a voz em frequências fractais, identificando artefatos que o ouvido humano não consegue perceber.</p>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">03</div>
+                    <div class="step-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        </svg>
+                    </div>
+                    <h3>Veredito Forense</h3>
+                    <p>Em segundos, você recebe um relatório de autenticidade com o grau de confiança e a probabilidade exata de manipulação.</p>
+                </div>
             </div>
-
-            <div class="step-card glass-card">
-                <div class="step-number">02</div>
-                <div class="step-icon">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
-                    </svg>
-                </div>
-                <h3>Análise Espectral</h3>
-                <p>O motor HyperMoon decompõe a voz em frequências fractais, identificando artefatos que o ouvido humano não consegue perceber.</p>
-            </div>
-
-            <div class="step-card glass-card">
-                <div class="step-number">03</div>
-                <div class="step-icon">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                    </svg>
-                </div>
-                <h3>Veredito Forense</h3>
-                <p>Em segundos, você recebe um relatório de autenticidade com o grau de confiança e a probabilidade exata de manipulação.</p>
+            <div class="modal-footer">
+                <p>Tecnologia baseada em Wav2Vec 2.0 & HyperMoon Analysis.</p>
             </div>
         </div>
-    </section>
+    </div>
 
     <footer class="glass-footer">
         <div class="footer-content">
