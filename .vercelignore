@@ -1,7 +1,7 @@
 # Ignora arquivos de backend e ML para o Vercel não tentar buildar Python
 execution/
 directives/
-/requirements.txt
+# requirements exposto para a Vercel achar o FastAPI
 Dockerfile
 Procfile
 main.py

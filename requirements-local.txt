@@ -1,0 +1,16 @@
+# Core Backend
+fastapi
+uvicorn
+python-multipart
+
+# Machine Learning & Audio
+torch --index-url https://download.pytorch.org/whl/cpu
+transformers
+librosa
+soundfile
+matplotlib
+scipy
+
+# Utilities
+python-dotenv
+requests
