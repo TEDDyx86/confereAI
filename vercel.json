@@ -4,6 +4,14 @@
     {
       "source": "/analyze",
       "destination": "/api/index.py"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/public/$1"
+    },
+    {
+      "source": "/",
+      "destination": "/public/index.html"
     }
   ]
 }
