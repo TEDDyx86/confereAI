@@ -28,7 +28,7 @@ class AnalysisResult(BaseModel):
     spectrogram_url: str
     engine: str
 
-@app.get("/")
+@app.get("/api")
 def read_root():
     return {"status": "ConfereAI Vercel API is online", "model": MODEL_ID}
 
