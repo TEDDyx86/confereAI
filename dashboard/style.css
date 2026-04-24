@@ -1,7 +1,8 @@
 :root {
-    --bg-dark: #0A0A0B;
-    --accent: #8B5CF6;
+    --primary: #9d50bb;
+    --accent: #6e48aa;
     --accent-glow: rgba(139, 92, 246, 0.4);
+    --bg-dark: #0a0a0c;
     --cyan: #06B6D4;
     --text-primary: #F8F9FA;
     --text-secondary: #94A3B8;
@@ -52,10 +53,20 @@ nav {
 }
 
 .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
     font-family: 'Outfit', sans-serif;
-    font-weight: 800;
     font-size: 1.5rem;
-    letter-spacing: -0.5px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: white;
+}
+
+.logo img {
+    height: 40px;
+    width: auto;
+    filter: drop-shadow(0 0 10px rgba(157, 80, 187, 0.5));
 }
 
 .vibrance {

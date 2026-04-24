@@ -87,10 +87,13 @@ function displayResults(data) {
         // Cor do círculo baseada no risco
         if (fraudProb > 80) {
             confidencePath.style.stroke = '#EF4444'; // Vermelho (Perigo)
+            if (pulseDot) pulseDot.style.background = '#EF4444';
         } else if (fraudProb > 40) {
             confidencePath.style.stroke = '#F59E0B'; // Amarelo (Atenção)
+            if (pulseDot) pulseDot.style.background = '#F59E0B';
         } else {
             confidencePath.style.stroke = '#10B981'; // Verde (Seguro)
+            if (pulseDot) pulseDot.style.background = '#10B981';
         }
 
         // Animação do círculo
