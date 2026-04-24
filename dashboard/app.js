@@ -30,11 +30,11 @@ dropZone.addEventListener('drop', (e) => {
 });
 
 async function handleUpload(file) {
-    // URL da API (Troque para sua URL do Railway após o deploy se necessário)
-    // Dica: você pode usar window.location se o backend estiver no mesmo domínio
-    const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
-        ? 'http://localhost:8000' 
-        : ''; // No deploy, se estiverem no mesmo projeto, deixe vazio. Caso contrário, coloque a URL do Railway.
+    // Detecta se estamos rodando localmente ou no Hugging Face
+    const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    
+    // Se você estiver no Vercel, mude '' para a URL do seu Space no Hugging Face
+    const API_URL = isLocal ? 'http://localhost:7860' : ''; 
 
     // Reset e mostra seção de resultados
     resultsSection.style.display = 'grid';
@@ -99,7 +99,9 @@ function displayResults(data) {
         // Animação do círculo
         confidencePath.setAttribute('stroke-dasharray', `${fraudProb}, 100`);
     }
-
+    // Atualiza Espectrograma
+    if (data.spectrogram_url) {
+        const specName = data.spectrogram_url.split(/[\\/]/).pop();
         const timestamp = new Date().getTime();
         specContainer.innerHTML = `<img src="/tmp/${specName}?t=${timestamp}" alt="Espectrograma de Mel">`;
     }
