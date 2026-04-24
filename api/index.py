@@ -18,7 +18,7 @@ app.add_middleware(
 
 # Configurações do Hugging Face
 HF_TOKEN = os.getenv("HF_TOKEN")
-MODEL_ID = "mo-thecreator/Deepfake-audio-detection"
+MODEL_ID = "HyperMoon/wav2vec2-base-960h-finetuned-deepfake"
 API_URL = f"https://api-inference.huggingface.co/models/{MODEL_ID}"
 
 class AnalysisResult(BaseModel):
