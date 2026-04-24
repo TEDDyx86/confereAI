@@ -69,12 +69,12 @@ if not os.path.exists(".tmp"):
 # Servir arquivos do dashboard e imagens temporárias (se existirem)
 app.mount("/tmp", StaticFiles(directory=".tmp"), name="tmp")
 
-if os.path.exists("dashboard"):
-    app.mount("/", StaticFiles(directory="dashboard", html=True), name="dashboard")
+if os.path.exists("public"):
+    app.mount("/", StaticFiles(directory="public", html=True), name="public")
 else:
     @app.get("/")
     async def root_fallback():
-        return {"status": "ConfereAI API Running", "message": "Dashboard directory not found. Please use the Vercel frontend."}
+        return {"status": "ConfereAI API Running", "message": "Public directory not found. Please use the Vercel frontend."}
 
 if __name__ == "__main__":
     import uvicorn
