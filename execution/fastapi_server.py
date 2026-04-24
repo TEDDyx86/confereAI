@@ -63,4 +63,8 @@ app.mount("/tmp", StaticFiles(directory=".tmp"), name="tmp")
 app.mount("/", StaticFiles(directory="dashboard", html=True), name="dashboard")
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    import uvicorn
+    import os
+    port = int(os.environ.get("PORT", 8000))
+    host = os.environ.get("HOST", "0.0.0.0")
+    uvicorn.run(app, host=host, port=port)

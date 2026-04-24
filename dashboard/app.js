@@ -30,6 +30,12 @@ dropZone.addEventListener('drop', (e) => {
 });
 
 async function handleUpload(file) {
+    // URL da API (Troque para sua URL do Railway após o deploy se necessário)
+    // Dica: você pode usar window.location se o backend estiver no mesmo domínio
+    const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
+        ? 'http://localhost:8000' 
+        : ''; // No deploy, se estiverem no mesmo projeto, deixe vazio. Caso contrário, coloque a URL do Railway.
+
     // Reset e mostra seção de resultados
     resultsSection.style.display = 'grid';
     verdictText.textContent = 'PROCESSANDO...';
@@ -41,7 +47,7 @@ async function handleUpload(file) {
     formData.append('file', file);
 
     try {
-        const response = await fetch('http://localhost:8000/analyze', {
+        const response = await fetch(`${API_URL}/analyze`, {
             method: 'POST',
             body: formData
         });
