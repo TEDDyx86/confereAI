@@ -56,17 +56,22 @@ nav {
     display: flex;
     align-items: center;
     gap: 12px;
-    font-family: 'Outfit', sans-serif;
-    font-size: 1.5rem;
-    font-weight: 900;
-    letter-spacing: 2px;
-    color: white;
 }
 
 .logo img {
-    height: 40px;
+    height: 32px;
     width: auto;
-    filter: drop-shadow(0 0 10px rgba(157, 80, 187, 0.5));
+    filter: drop-shadow(0 0 8px rgba(157, 80, 187, 0.4));
+}
+
+.logo span {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 900;
+    font-size: 1.5rem;
+    letter-spacing: -0.5px;
+    background: linear-gradient(135deg, #fff 0%, #9d50bb 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .vibrance {
