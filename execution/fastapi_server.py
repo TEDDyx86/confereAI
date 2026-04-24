@@ -6,13 +6,13 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import uvicorn
 
-# Importamos nossos módulos de execução usando caminhos absolutos para o deploy
+# Importamos nossos módulos de execução
 from execution.feature_extractor import extract_features
-from execution.inference_wav2vec import run_inference
+from execution.analyze_audio import analyze_audio
 
 app = FastAPI(title="ConfereAI Audio Fraud Detection API")
 
-# Configuração de CORS para permitir acesso do frontend
+# Configuração de CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -24,8 +24,8 @@ class AnalysisResult(BaseModel):
     filename: str
     fraud_score: float
     verdict: str
-    confidence: float
     spectrogram_url: str
+    engine: str
 
 @app.post("/analyze", response_model=AnalysisResult)
 async def analyze_audio_endpoint(file: UploadFile = File(...)):
@@ -40,19 +40,22 @@ async def analyze_audio_endpoint(file: UploadFile = File(...)):
         shutil.copyfileobj(file.file, buffer)
         
     try:
-        # 1. Extração de Features
+        # 1. Extração de Imagens (Local)
         features = extract_features(file_path, output_dir=temp_dir)
         
-        # 2. Inferência de Deepfake
-        inference = run_inference(file_path)
+        # 2. Análise Neural (API de Inferência do Hugging Face - Seu novo motor!)
+        analysis = analyze_audio(file_path)
         
-        # 3. Consolidação (Orquestração)
+        if "error" in analysis:
+            raise Exception(analysis["error"])
+
+        # 3. Resposta Consolidada
         return AnalysisResult(
             filename=file.filename,
-            fraud_score=inference.get("deepfake_probability", 0.0),
-            verdict=inference.get("prediction", "UNKNOWN"),
-            confidence=inference.get("confidence", 0.0),
-            spectrogram_url=features.get("spectrogram_path", "")
+            fraud_score=analysis.get("fraud_score", 0.0),
+            verdict=analysis.get("verdict", "UNKNOWN"),
+            spectrogram_url=features.get("spectrogram_path", ""),
+            engine=analysis.get("model_used", "Hugging Face API")
         )
     except Exception as e:
         print(f"Erro na análise: {e}")

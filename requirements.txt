@@ -13,3 +13,4 @@ scipy
 
 # Utilities
 python-dotenv
+requests
