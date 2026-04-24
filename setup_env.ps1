@@ -12,6 +12,6 @@ if (-not (Test-Path "venv")) {
 # Ativa o ambiente virtual e instala dependências
 Write-Host "Instalando dependências (librosa, transformers, torch, fastapi, uvicorn, matplotlib, python-multipart)..."
 .\venv\Scripts\python.exe -m pip install --upgrade pip
-.\venv\Scripts\python.exe -m pip install librosa transformers torch fastapi uvicorn matplotlib soundfile python-multipart
+.\venv\Scripts\python.exe -m pip install librosa transformers torch fastapi uvicorn matplotlib soundfile python-multipart requests python-dotenv
 
 Write-Host "Configuração concluída com sucesso!" -ForegroundColor Green

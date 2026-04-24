@@ -1,26 +1,73 @@
+import os
 import sys
 import json
-import random
+import time
+import requests
+from dotenv import load_dotenv
+
+# Carrega as chaves do .env
+load_dotenv()
+
+HF_TOKEN = os.getenv("HF_TOKEN")
+# Modelo especialista em detecção de áudio sintético (Wav2Vec2)
+MODEL_ID = "mo-thecreator/Deepfake-audio-detection"
+API_URL = f"https://api-inference.huggingface.co/models/{MODEL_ID}"
 
 def analyze_audio(file_path):
     """
-    Mock de análise de áudio para detecção de fraude.
-    Em uma implementação real, usaria bibliotecas como librosa ou modelos de ML.
+    Realiza a análise de áudio usando a API de Inferência do Hugging Face.
     """
-    print(f"Analizando: {file_path}...")
+    if not HF_TOKEN or "your_" in HF_TOKEN:
+        return {
+            "error": "HF_TOKEN não configurado. Adicione seu token no arquivo .env",
+            "verdict": "CONFIG_ERROR"
+        }
+
+    if not os.path.exists(file_path):
+        return {"error": f"Arquivo não encontrado: {file_path}"}
+
+    print(f"Enviando {file_path} para análise no Hugging Face ({MODEL_ID})...")
     
-    # Simula processamento
-    confidence = random.uniform(0.1, 0.95)
+    with open(file_path, "rb") as f:
+        data = f.read()
+
+    headers = {"Authorization": f"Bearer {HF_TOKEN}"}
     
-    results = {
-        "file": file_path,
-        "fraud_score": confidence,
-        "artifacts_detected": confidence > 0.7,
-        "metadata_consistency": "High" if confidence < 0.5 else "Low",
-        "verdict": "FRAUD_DETECTED" if confidence > 0.8 else "AUTHENTIC"
-    }
-    
-    return results
+    # Tenta a chamada com retry caso o modelo esteja carregando
+    for attempt in range(3):
+        response = requests.post(API_URL, headers=headers, data=data)
+        result = response.json()
+        
+        # O Hugging Face pode retornar que o modelo está carregando {"error": "Model ... is currently loading", "estimated_time": 20}
+        if response.status_code == 200:
+            break
+        elif "loading" in str(result).lower():
+            wait_time = result.get("estimated_time", 10)
+            print(f"Modelo carregando... Aguardando {wait_time}s")
+            time.sleep(wait_time)
+        else:
+            return {"error": f"Erro na API: {result}", "status_code": response.status_code}
+
+    # Processa os resultados
+    # O modelo retorna algo como: [{"label": "fake", "score": 0.99}, {"label": "real", "score": 0.01}]
+    try:
+        # Pega o score de 'fake'
+        fake_score = next(item["score"] for item in result if item["label"].lower() == "fake")
+        
+        verdict = "FRAUD_DETECTED" if fake_score > 0.7 else "AUTHENTIC"
+        
+        analysis = {
+            "file": os.path.basename(file_path),
+            "fraud_score": round(fake_score, 4),
+            "artifacts_detected": fake_score > 0.5,
+            "metadata_consistency": "Checked via Neural Analysis",
+            "verdict": verdict,
+            "raw_scores": result,
+            "model_used": MODEL_ID
+        }
+        return analysis
+    except (KeyError, StopIteration) as e:
+        return {"error": f"Erro ao processar resposta do modelo: {str(e)}", "raw": result}
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
