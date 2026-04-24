@@ -1,61 +1,58 @@
 ---
-title: ConfereAI
+title: ConfereAI - Audio Fraud Detection
 emoji: 🛡️
-colorFrom: indigo
-colorTo: purple
+colorFrom: purple
+colorTo: indigo
 sdk: docker
-pinned: false
+app_port: 7860
+pinned: true
 ---
 
-# 🛡️ ConfereAI - Audio Fraud Detection
+# 🛡️ CONFEREAI 
+### *Verdade na voz, integridade no som.*
 
-ConfereAI é uma plataforma de segurança cibernética avançada projetada para identificar **Deepfakes** e **Clonagem de Voz** em tempo real. Utilizando redes neurais transformadoras (Wav2Vec 2.0), o sistema analisa artefatos acústicos invisíveis ao ouvido humano para distinguir voz real de fala sintetizada.
+O **ConfereAI** é uma plataforma de segurança cibernética de última geração projetada para identificar e neutralizar fraudes de áudio, deepfakes e vozes clonadas via Inteligência Artificial. Utilizando uma arquitetura de redes neurais profundas, o sistema analisa micro-imperfeições acústicas imperceptíveis ao ouvido humano.
 
-![ConfereAI Dashboard](dashboard/assets/preview.png)
+![ConfereAI Dashboard](dashboard/assets/logo.png)
 
-## 🚀 Tecnologias
+## 🚀 Diferenciais Tecnológicos
 
-### Execução (Backend / ML)
-- **FastAPI**: Servidor de alta performance.
-- **Wav2Vec 2.0**: Modelo de Deep Learning para análise de representações latentes de áudio.
-- **Librosa**: Processamento de sinal digital e extração de espectrogramas.
-- **PyTorch & Transformers**: Engine de inferência.
+- **🧠 Motor Neural Local**: Diferente de soluções que dependem de APIs instáveis, o ConfereAI utiliza um motor dedicado baseado em **Wav2Vec 2.0** (HyperMoon) rodando localmente no servidor.
+- **📊 Evidência Espectral**: Gera espectrogramas de Mel em tempo real, permitindo uma análise forense visual das frequências de áudio.
+- **⚡ Resposta Instantânea**: Análise completa em segundos, ideal para validação de identidade e prevenção de fraudes em tempo real.
+- **💎 Interface Onyx**: Dashboard premium com Estética Onyx e Glassmorphism, focado em clareza e experiência do usuário (UX).
 
-### Interface (Frontend)
-- **Glassmorphism Design**: Estética moderna com transparência e profundidade.
-- **Vanilla JS & CSS**: UI rápida e leve, focada em performance.
-- **Aurora Mesh**: Escopo visual dinâmico em segundo plano.
+## 🛠️ Arquitetura de Software
 
-## 📁 Estrutura do Projeto
+O sistema é dividido em duas camadas principais:
 
-Conforme a arquitetura de **3 Camadas (Directive, Orchestration, Execution)**:
+1. **Backend (Python/FastAPI)**: 
+   - Gerenciamento de arquivos e processamento paralelo.
+   - Extração de características com `Librosa`.
+   - Inferência neural via `PyTorch` e `Transformers`.
+2. **Frontend (Vanilla JS/CSS)**:
+   - Interface ultra-responsiva sem dependências pesadas.
+   - Visualização dinâmica de resultados e medidores de confiança neon.
 
-```text
-├── directives/      # SOPs e Missão (Estratégia)
-├── execution/       # Scripts determinísticos (Motor de IA)
-│   ├── fastapi_server.py
-│   ├── feature_extractor.py
-│   └── inference_wav2vec.py
-├── dashboard/       # Interface Web (Apresentação)
-└── .tmp/            # Arquivos processados (Volátil)
+## 🔬 O Coração da IA: HyperMoon Engine
+
+Utilizamos o modelo **HyperMoon/wav2vec2-base-960h-finetuned-deepfake**, treinado com o dataset acadêmico **ASVspoof**. 
+- **Foco**: Detecção de descontinuidades rítmicas e artefatos de compressão típicos de IAs generativas.
+- **Veredito**: Entrega um score de probabilidade (0% a 100%) e um veredito direto: **AUTÊNTICO** ou **FRAUDE DETECTADA**.
+
+## 📦 Como Rodar o Projeto
+
+### Localmente (Docker)
+```bash
+docker build -t confereai .
+docker run -p 7860:7860 confereai
 ```
 
-## 🔧 Instalação e Uso Local
-
-1. Instale as dependências:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-2. Inicie o servidor:
-   ```bash
-   python execution/fastapi_server.py
-   ```
-
-3. Acesse no navegador: `http://localhost:8000`
-
-## 🔒 Segurança e Privacidade
-Os arquivos enviados são processados localmente ou em ambiente segregado e deletados após a análise (armazenamento volátil em `.tmp/`).
+### Deploy no Hugging Face Spaces
+1. Crie um novo **Space** no Hugging Face.
+2. Selecione o SDK: **Docker**.
+3. Faça o push deste repositório.
+4. O sistema irá buildar e servir automaticamente na porta 7860.
 
 ---
-Desenvolvido por **ConfereAI Team**.
+**CONFEREAI** - *Protegendo a integridade da comunicação humana na era da IA.*
