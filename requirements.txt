@@ -1,5 +1,6 @@
 fastapi
-uvicorn
-python-multipart
 requests
+python-multipart
+uvicorn
 pydantic
+python-dotenv
