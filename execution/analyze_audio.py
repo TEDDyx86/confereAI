@@ -36,17 +36,24 @@ def analyze_audio(file_path):
     # Tenta a chamada com retry caso o modelo esteja carregando
     for attempt in range(3):
         response = requests.post(API_URL, headers=headers, data=data)
-        result = response.json()
         
-        # O Hugging Face pode retornar que o modelo está carregando {"error": "Model ... is currently loading", "estimated_time": 20}
+        try:
+            result = response.json()
+        except requests.exceptions.JSONDecodeError:
+            return {
+                "error": "Resposta da API não é um JSON válido",
+                "status_code": response.status_code,
+                "response_text": response.text[:500]
+            }
+        
         if response.status_code == 200:
             break
-        elif "loading" in str(result).lower():
-            wait_time = result.get("estimated_time", 10)
-            print(f"Modelo carregando... Aguardando {wait_time}s")
+        elif response.status_code == 503 or "loading" in str(result).lower():
+            wait_time = result.get("estimated_time", 15) if isinstance(result, dict) else 15
+            print(f"Modelo carregando (503)... Aguardando {wait_time}s (Tentativa {attempt+1}/3)")
             time.sleep(wait_time)
         else:
-            return {"error": f"Erro na API: {result}", "status_code": response.status_code}
+            return {"error": f"Erro na API ({response.status_code})", "result": result}
 
     # Processa os resultados
     # O modelo retorna algo como: [{"label": "fake", "score": 0.99}, {"label": "real", "score": 0.01}]
