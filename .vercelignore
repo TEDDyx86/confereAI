@@ -1,7 +1,7 @@
 # Ignora arquivos de backend e ML para o Vercel não tentar buildar Python
 execution/
 directives/
-# (requirements excluido para a vercel funcionar)
+requirements.txt
 Dockerfile
 Procfile
 main.py
