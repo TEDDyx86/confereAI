@@ -52,9 +52,6 @@ def get_combined_verdict(file_path):
         },
         "engines": ["Wav2Vec2-Deepfake", "AST-Spectrogram"]
     }
-,
-        "engines": ["Wav2Vec2-Deepfake", "AST-Spectrogram"]
-    }
 
 
 if __name__ == "__main__":
