@@ -1,0 +1,12 @@
+# Ignorar pastas densas que já estão no repo local
+venv/
+.venv/
+__pycache__/
+.tmp/
+.git/
+.env
+
+# Outros
+*.wav
+*.mp3
+*.log

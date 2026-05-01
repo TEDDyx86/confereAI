@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConfereAI Admin | Fine-Tuning</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .hidden { display: none !important; }
+        
+        /* Admin specific styles */
+        .admin-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            color: white;
+            font-family: 'Inter', sans-serif;
+            transition: border-color 0.3s;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 20px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 1rem;
+            border: 1px solid var(--glass-border);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--cyan));
+            width: 0%;
+            transition: width 0.5s ease-in-out;
+        }
+
+        .status-text {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+    <div class="aurora-mesh"></div>
+
+    <nav>
+        <div class="logo">
+            <a href="index.html" style="text-decoration: none; display: flex; align-items: center; gap: 12px;">
+                <span>Confere<span class="vibrance">AI</span> Admin</span>
+            </a>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Voltar ao App</a>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Login Section -->
+        <section id="login-section" class="admin-container">
+            <div class="glass-card" style="text-align: center;">
+                <h2 style="font-family: 'Outfit'; font-size: 2rem; margin-bottom: 1rem;">Acesso Restrito</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 2rem;">Insira a senha de administrador para gerenciar o aprendizado do motor neural.</p>
+                
+                <form id="login-form">
+                    <div class="form-group">
+                        <input type="password" id="admin-password" class="form-control" placeholder="Senha do Admin" required>
+                    </div>
+                    <button type="submit" class="btn-primary" style="width: 100%;">Entrar</button>
+                </form>
+                <div id="login-error" class="status-text hidden" style="color: var(--danger);">Senha incorreta.</div>
+            </div>
+        </section>
+
+        <!-- Dashboard Section -->
+        <section id="dashboard-section" class="admin-container hidden">
+            <div class="glass-card" style="text-align: center;">
+                <h2 style="font-family: 'Outfit'; font-size: 2rem; margin-bottom: 1rem;">Treinar Modelo</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 2rem;">Faça upload de um arquivo .zip ou .rar contendo pastas 'real' e 'fake' com áudios (.mp3, .wav, .flac).</p>
+                
+                <div id="drop-zone" style="padding: 3rem; border-radius: 12px; margin-bottom: 2rem;">
+                    <div class="upload-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="17 8 12 3 7 8"></polyline>
+                            <line x1="12" y1="3" x2="12" y2="15"></line>
+                        </svg>
+                    </div>
+                    <h3 style="margin-bottom: 10px;">Arraste o arquivo ou clique</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Limite: 50MB (max 5 arquivos recomendados por lote)</p>
+                    <input type="file" id="file-input" class="hidden" accept=".zip,.rar">
+                </div>
+
+                <div id="selected-file-info" class="hidden" style="margin-bottom: 1.5rem; color: var(--success); font-weight: 500;">
+                    Arquivo selecionado: <span id="filename-display"></span>
+                </div>
+
+                <button id="btn-upload-train" class="btn-primary" style="width: 100%;" disabled>Iniciar Upload e Treinamento</button>
+
+                <!-- Training Progress -->
+                <div id="training-progress-container" class="hidden" style="margin-top: 2rem;">
+                    <h4 style="color: var(--cyan);">Status do Treinamento</h4>
+                    <div class="progress-bar-container">
+                        <div id="training-progress-bar" class="progress-bar"></div>
+                    </div>
+                    <div id="training-status-text" class="status-text">Preparando ambiente...</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/admin.js"></script>
+</body>
+</html>
