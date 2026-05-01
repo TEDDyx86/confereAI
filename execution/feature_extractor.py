@@ -28,7 +28,8 @@ def extract_features(audio_path, output_dir=".tmp/"):
     mfccs = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=40)
     
     # Salva imagem do espectrograma para o dashboard
-    spec_filename = os.path.basename(audio_path).split('.')[0] + "_spec.png"
+    base_name = os.path.splitext(os.path.basename(audio_path))[0]
+    spec_filename = base_name + "_spec.png"
     spec_path = os.path.join(output_dir, spec_filename)
     
     plt.figure(figsize=(10, 4))

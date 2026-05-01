@@ -62,8 +62,10 @@ async def analyze_audio_endpoint(file: UploadFile = File(...)):
     if not os.path.exists(temp_dir):
         os.makedirs(temp_dir)
         
-    # Salva arquivo temporariamente
-    file_path = os.path.join(temp_dir, file.filename)
+    # Salva arquivo temporariamente com ID único para evitar colisões
+    unique_id = str(uuid.uuid4())[:8]
+    filename = f"{unique_id}_{file.filename}"
+    file_path = os.path.join(temp_dir, filename)
     with open(file_path, "wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
         
@@ -79,7 +81,7 @@ async def analyze_audio_endpoint(file: UploadFile = File(...)):
             filename=file.filename,
             fraud_score=analysis.get("fraud_probability", 0.0),
             verdict=analysis.get("verdict", "UNKNOWN"),
-            spectrogram_url=features.get("spectrogram_path", ""),
+            spectrogram_url=features.get("spectrogram_path", "").replace(".tmp/", "/tmp/"),
             engine="Dual Engine (Wav2Vec2 + AST) - Protocolo de Rigor",
             wav2vec_score=analysis.get("wav2vec_score", 0.0),
             ast_score=analysis.get("ast_score", 0.0),
