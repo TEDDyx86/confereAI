@@ -1,5 +1,5 @@
 ---
-title: ConfereAI - Audio Fraud Detection (V2.2)
+title: ConfereAI - Audio Fraud Forensic Engine (V2.4)
 emoji: 🛡️
 colorFrom: purple
 colorTo: indigo
@@ -8,51 +8,81 @@ app_port: 7860
 pinned: true
 ---
 
-# 🛡️ CONFEREAI 
-### *Verdade na voz, integridade no som.*
+<div align="center">
 
-O **ConfereAI** é uma plataforma de segurança cibernética de última geração projetada para identificar e neutralizar fraudes de áudio, deepfakes e vozes clonadas via Inteligência Artificial. Utilizando uma arquitetura de redes neurais profundas, o sistema analisa micro-imperfeições acústicas imperceptíveis ao ouvido humano.
+# 🛡️ CONFEREAI
+### **Neural Audio Forensic Engine**
+*Identificação Cirúrgica de Deepfakes e Clonagem de Voz*
 
-![ConfereAI Dashboard](dashboard/assets/logo.png)
-
-## 🚀 Diferenciais Tecnológicos
-
-- **🧠 Motor Neural Local**: Diferente de soluções que dependem de APIs instáveis, o ConfereAI utiliza um motor dedicado baseado em **Wav2Vec 2.0** (HyperMoon) rodando localmente no servidor.
-- **📊 Evidência Espectral**: Gera espectrogramas de Mel em tempo real, permitindo uma análise forense visual das frequências de áudio.
-- **⚡ Resposta Instantânea**: Análise completa em segundos, ideal para validação de identidade e prevenção de fraudes em tempo real.
-- **💎 Interface Onyx**: Dashboard premium com Estética Onyx e Glassmorphism, focado em clareza e experiência do usuário (UX).
-
-## 🛠️ Arquitetura de Software
-
-O sistema é dividido em duas camadas principais:
-
-1. **Backend (Python/FastAPI)**: 
-   - Gerenciamento de arquivos e processamento paralelo.
-   - Extração de características com `Librosa`.
-   - Inferência neural via `PyTorch` e `Transformers`.
-2. **Frontend (Vanilla JS/CSS)**:
-   - Interface ultra-responsiva sem dependências pesadas.
-   - Visualização dinâmica de resultados e medidores de confiança neon.
-
-## 🔬 O Coração da IA: HyperMoon Engine
-
-Utilizamos o modelo **HyperMoon/wav2vec2-base-960h-finetuned-deepfake**, treinado com o dataset acadêmico **ASVspoof**. 
-- **Foco**: Detecção de descontinuidades rítmicas e artefatos de compressão típicos de IAs generativas.
-- **Veredito**: Entrega um score de probabilidade (0% a 100%) e um veredito direto: **AUTÊNTICO** ou **FRAUDE DETECTADA**.
-
-## 📦 Como Rodar o Projeto
-
-### Localmente (Docker)
-```bash
-docker build -t confereai .
-docker run -p 7860:7860 confereai
-```
-
-### Deploy no Hugging Face Spaces
-1. Crie um novo **Space** no Hugging Face.
-2. Selecione o SDK: **Docker**.
-3. Faça o push deste repositório.
-4. O sistema irá buildar e servir automaticamente na porta 7860.
+[![Hugging Face Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-blue)](https://huggingface.co/spaces/TEDDyx86/confereai-dev)
+[![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=flat&logo=fastapi)](https://fastapi.tiangolo.com/)
+[![Python 3.10](https://img.shields.io/badge/Python-3.10-3776AB?style=flat&logo=python)](https://www.python.org/)
+[![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white)](https://www.docker.com/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 ---
-**CONFEREAI** - *Protegendo a integridade da comunicação humana na era da IA.*
+
+[**Dashboard Online**](https://huggingface.co/spaces/TEDDyx86/confereai-dev) | [**Notebook de Treino**](ConfereAI_FastTrain_Colab.ipynb) | [**Documentação API**](#api)
+
+</div>
+
+## 📖 O Projeto
+
+O **ConfereAI** é uma plataforma de segurança cibernética de alta performance projetada para identificar fraudes de áudio com precisão forense. Utilizando o **Protocolo de Rigor V3**, o sistema combina múltiplos motores neurais para detectar micro-imperfeições acústicas e descontinuidades rítmicas imperceptíveis ao ouvido humano.
+
+---
+
+## 💎 Diferenciais Estratégicos (V2.4)
+
+| Recurso | Descrição |
+| :--- | :--- |
+| **🧠 Dual-Engine** | Orquestração entre **HyperMoon (Wav2Vec2)** e **AST (Spectrogram Transformer)**. |
+| **🛡️ Rigor V3** | Lógica de decisão Bayesiana que prioriza a soberania do modelo local treinado. |
+| **📊 XAI (Explainable AI)** | Mapa de Calor Temporal que indica exatamente onde a IA detectou a anomalia. |
+| **⚡ Turbo Inference** | Quantização Dinâmica (FP16) para análises ultra-rápidas em CPU. |
+| **🎨 Onyx Interface** | Dashboard Premium com estética Glassmorphism e UX focada em forense. |
+
+---
+
+## 🔬 Arquitetura dos Motores
+
+### 1. 🟣 HyperMoon Engine (O Comandante)
+Baseado em **Wav2Vec 2.0**, este motor foca na **textura da voz**. Ele identifica artefatos de compressão e variações na prosódia que denunciam vozes sintéticas. É o motor principal que recebe o ajuste fino (Fine-Tuning) via Google Colab.
+
+### 2. 🔵 AST Spectrogram Engine
+Baseado em **Transformers de Visão para Áudio**, este motor analisa o **Espectrograma de Mel**. Ele busca por "ruídos fantasmas" e descontinuidades de frequência que são marcas registradas de vocoders de IA (como RVC ou ElevenLabs).
+
+---
+
+## 🚀 Workflow de Treinamento Híbrido
+
+O ConfereAI permite que você aprimore a detecção com seus próprios dados:
+
+1.  **Dataset**: Organize seus áudios em pastas `real` e `fake`.
+2.  **Google Colab**: Use nosso [Notebook de Treino](ConfereAI_FastTrain_Colab.ipynb) para fine-tuning em GPU T4.
+3.  **HF Model**: O modelo é enviado para um repositório de **Modelos** (LFS ilimitado).
+4.  **Auto-Update**: O Space carrega o novo "cérebro" via variável `CUSTOM_MODEL_REPO`.
+
+---
+
+## 🛠️ Stack Tecnológica
+
+- **Backend**: Python 3.10, FastAPI, Uvicorn
+- **Inteligência**: PyTorch, Hugging Face Transformers, Librosa
+- **Frontend**: Vanilla JavaScript (ES6+), CSS Aurora Mesh, Glassmorphism
+- **DevOps**: Docker, Hugging Face Spaces SDK
+
+---
+
+## 📦 Instalação e Uso
+
+### Localmente via Docker
+```bash
+# Clone o repositório
+git clone https://github.com/TEDDyx86/confereai.git
+
+# Build da imagem
+docker build -t confereai .
+
+# Rode o container
+docker run -p 7860:7860 -e CUSTOM_MODEL_REPO="seu-usuario/seu-modelo" confereai
