@@ -119,9 +119,9 @@ function displayResults(data) {
         if (data.temporal_scores && data.temporal_scores.length > 0) {
             data.temporal_scores.forEach(score => {
                 // Interpola cor entre verde (seguro) e vermelho (fraude)
-                // Usando HSL: 140 (verde) a 0 (vermelho)
-                const hue = 140 - (score * 140);
-                const opacity = score > 0.3 ? (score * 0.4) : 0; // Só mostra destaque se houver risco mínimo
+                // Usando HSL: 120 (verde) a 0 (vermelho)
+                const hue = 120 - (score * 120);
+                const opacity = score > 0.4 ? (score * 0.7) : (score * 0.2); 
                 heatmapHtml += `<div class="heatmap-segment" style="background: hsla(${hue}, 100%, 50%, ${opacity})"></div>`;
             });
         }
@@ -154,20 +154,27 @@ function updateDiagnostics(data) {
     const w2vScore = Math.round((data.wav2vec_score || 0) * 100);
     const astScore = Math.round((data.ast_score || 0) * 100);
 
-    document.getElementById('w2v-val').textContent = `${w2vScore}%`;
-    document.getElementById('ast-val').textContent = `${astScore}%`;
-    document.getElementById('w2v-bar').style.width = `${w2vScore}%`;
-    document.getElementById('ast-bar').style.width = `${astScore}%`;
-    document.getElementById('rigor-logic').textContent = data.engines_consensus || 'Padrão';
+    // Atualiza valores e barras com delay para animação
+    setTimeout(() => {
+        document.getElementById('w2v-val').textContent = `${w2vScore}%`;
+        document.getElementById('ast-val').textContent = `${astScore}%`;
+        document.getElementById('w2v-bar').style.width = `${w2vScore}%`;
+        document.getElementById('ast-bar').style.width = `${astScore}%`;
+        document.getElementById('rigor-logic').textContent = data.engines_consensus || 'Padrão';
+    }, 100);
 
     // Toggle behavior
-    if (toggleBtn && !toggleBtn.hasListener) {
+    if (toggleBtn && !toggleBtn.dataset.hasListener) {
         toggleBtn.addEventListener('click', () => {
             const isHidden = details.style.display === 'none';
             details.style.display = isHidden ? 'block' : 'none';
             toggleBtn.textContent = isHidden ? 'Esconder' : 'Ver Detalhes';
+            
+            if (isHidden) {
+                details.style.animation = 'fadeInUp 0.5s forwards';
+            }
         });
-        toggleBtn.hasListener = true;
+        toggleBtn.dataset.hasListener = "true";
     }
 }
 

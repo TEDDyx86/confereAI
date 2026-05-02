@@ -57,7 +57,7 @@ class AnalysisResult(BaseModel):
     temporal_scores: list = []
 
 @app.post("/analyze", response_model=AnalysisResult)
-async def analyze_audio_endpoint(file: UploadFile = File(...)):
+async def analyze_audio_endpoint(background_tasks: BackgroundTasks, file: UploadFile = File(...)):
     # Garante diretório temporário
     temp_dir = ".tmp"
     if not os.path.exists(temp_dir):
@@ -77,7 +77,21 @@ async def analyze_audio_endpoint(file: UploadFile = File(...)):
         # 2. Inferência via Ensemble (Wav2Vec2 + AST)
         analysis = get_combined_verdict(file_path)
         
-        # 3. Resposta Consolidada
+        # 3. Agenda limpeza em background (após 5 minutos para dar tempo do front ler a imagem)
+        def cleanup_temp_files(paths):
+            import time
+            time.sleep(300) # 5 minutos
+            for p in paths:
+                if os.path.exists(p):
+                    try:
+                        os.remove(p)
+                        print(f"Cleanup: {p} removido.")
+                    except Exception as e:
+                        print(f"Cleanup error: {e}")
+
+        background_tasks.add_task(cleanup_temp_files, [file_path, features.get("spectrogram_path")])
+
+        # 4. Resposta Consolidada
         return AnalysisResult(
             filename=file.filename,
             fraud_score=analysis.get("fraud_probability", 0.0),

@@ -25,21 +25,21 @@ def get_combined_verdict(file_path):
     if score_w2v >= HIGH_CONFIDENCE_THRESHOLD and score_ast >= HIGH_CONFIDENCE_THRESHOLD:
         is_fraud = True
         verdict = "SPOOF"
-        message = "FRAUDE DETECTADA: Ambos os motores (Wav2Vec2 e AST) confirmam alta probabilidade de deepfake."
+        message = "CONSENSO CRÍTICO: Ambos os motores detectaram padrões de clonagem com alta convicção."
     elif score_w2v >= HIGH_CONFIDENCE_THRESHOLD:
         is_fraud = True
         verdict = "SPOOF"
-        message = "FRAUDE DETECTADA: O Motor Wav2Vec2 (Nuances Rítmicas) identificou anomalias críticas."
+        message = "ALERTA DE VOZ: O motor Wav2Vec2 detectou irregularidades na textura fonética humana."
     elif score_ast >= HIGH_CONFIDENCE_THRESHOLD:
         is_fraud = True
         verdict = "SPOOF"
-        message = "FRAUDE DETECTADA: O Motor AST (Análise Espectral) detectou frequências sintéticas."
+        message = "ANOMALIA ESPECTRAL: O motor AST identificou assinaturas de frequências artificiais."
     elif final_score > 0.5:
         is_fraud = True
         verdict = "SPOOF"
-        message = "FRAUDE PROVÁVEL: Consenso de risco moderado entre os motores."
+        message = "RISCO DETECTADO: Evidências moderadas de manipulação neural identificadas."
     else:
-        message = "ÁUDIO AUTÊNTICO: Ambos os motores concordam com baixo risco de manipulação."
+        message = "INTEGRIDADE CONFIRMADA: Nenhuma evidência significativa de manipulação detectada."
         
     return {
         "verdict": verdict,
