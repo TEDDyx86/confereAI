@@ -1,18 +1,8 @@
----
-title: ConfereAI - Audio Fraud Forensic Engine (V2.4)
-emoji: 🛡️
-colorFrom: purple
-colorTo: indigo
-sdk: docker
-app_port: 7860
-pinned: true
----
-
 <div align="center">
 
 # 🛡️ CONFEREAI
 ### **Neural Audio Forensic Engine**
-*Identificação Cirúrgica de Deepfakes e Clonagem de Voz*
+*Identificação Cirúrgica de Clonagem de Voz*
 
 [![Hugging Face Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-blue)](https://huggingface.co/spaces/TEDDyx86/confereai-dev)
 [![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=flat&logo=fastapi)](https://fastapi.tiangolo.com/)
