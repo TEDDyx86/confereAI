@@ -64,15 +64,6 @@ O ConfereAI permite que você aprimore a detecção com seus próprios dados:
 
 ---
 
-## 📦 Instalação e Uso
+CONFEREAI - Protegendo a integridade da comunicação humana na era da IA.
 
-### Localmente via Docker
-```bash
-# Clone o repositório
-git clone https://github.com/TEDDyx86/confereai.git
-
-# Build da imagem
-docker build -t confereai .
-
-# Rode o container
-docker run -p 7860:7860 -e CUSTOM_MODEL_REPO="seu-usuario/seu-modelo" confereai
+Desenvolvido com ❤️ por TEDDyx86
