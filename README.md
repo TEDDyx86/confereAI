@@ -64,6 +64,8 @@ O ConfereAI permite que você aprimore a detecção com seus próprios dados:
 
 ---
 
+<div align="center">
+
 CONFEREAI - Protegendo a integridade da comunicação humana na era da IA.
 
 Desenvolvido com ❤️ por TEDDyx86
