@@ -46,6 +46,7 @@ def get_combined_verdict(file_path):
         "fraud_probability": final_score,
         "wav2vec_score": score_w2v,
         "ast_score": score_ast,
+        "temporal_scores": res_w2v.get("temporal_scores", []), # Adicionado para XAI
         "engines_consensus": message,
         "details": {
             "protocol": "Protocolo de Rigor (Conservador)"

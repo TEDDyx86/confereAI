@@ -54,6 +54,7 @@ class AnalysisResult(BaseModel):
     wav2vec_score: float = 0.0
     ast_score: float = 0.0
     engines_consensus: str = ""
+    temporal_scores: list = []
 
 @app.post("/analyze", response_model=AnalysisResult)
 async def analyze_audio_endpoint(file: UploadFile = File(...)):
@@ -85,7 +86,8 @@ async def analyze_audio_endpoint(file: UploadFile = File(...)):
             engine="Dual Engine (Wav2Vec2 + AST) - Protocolo de Rigor",
             wav2vec_score=analysis.get("wav2vec_score", 0.0),
             ast_score=analysis.get("ast_score", 0.0),
-            engines_consensus=analysis.get("engines_consensus", "")
+            engines_consensus=analysis.get("engines_consensus", ""),
+            temporal_scores=analysis.get("temporal_scores", [])
         )
 
     except Exception as e:

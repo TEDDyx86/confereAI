@@ -78,10 +78,16 @@ def start_finetuning(dataset_dir: str):
     if len(train_dataset) == 0:
         raise ValueError("Nenhum áudio encontrado no dataset.")
         
+    # Mapeamento explícito para evitar confusão de labels (0=Real, 1=Fraude)
+    id2label = {0: "AUTHENTIC", 1: "FAKE"}
+    label2id = {"AUTHENTIC": 0, "FAKE": 1}
+    
     # Carrega modelo e congela base
     model = Wav2Vec2ForSequenceClassification.from_pretrained(
         BASE_MODEL_NAME, 
         num_labels=2, 
+        id2label=id2label,
+        label2id=label2id,
         ignore_mismatched_sizes=True
     )
     

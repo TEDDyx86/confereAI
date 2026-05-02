@@ -70,10 +70,12 @@ function displayResults(data) {
     verdictText.style.color = isSpoof ? '#EF4444' : '#10B981';
 
     // Atualiza explicação do veredito (Consenso dos Motores)
+    /* 
     if (verdictExplanation) {
         verdictExplanation.textContent = data.engines_consensus || '';
         verdictExplanation.style.color = isSpoof ? '#FCA5A5' : '#6EE7B7';
     }
+    */
     verdictText.style.color = isSpoof ? '#EF4444' : '#10B981';
     
     // Atualiza ponto de pulso
@@ -108,10 +110,29 @@ function displayResults(data) {
         confidencePath.setAttribute('stroke-dasharray', `${fraudProb}, 100`);
     }
     // Atualiza Espectrograma
+    // Atualiza Espectrograma e Heatmap (XAI)
     if (data.spectrogram_url) {
         const specName = data.spectrogram_url.split(/[\\/]/).pop();
         const timestamp = new Date().getTime();
-        specContainer.innerHTML = `<img src="/tmp/${specName}?t=${timestamp}" alt="Espectrograma de Mel">`;
+        
+        let heatmapHtml = '<div class="heatmap-overlay">';
+        if (data.temporal_scores && data.temporal_scores.length > 0) {
+            data.temporal_scores.forEach(score => {
+                // Interpola cor entre verde (seguro) e vermelho (fraude)
+                // Usando HSL: 140 (verde) a 0 (vermelho)
+                const hue = 140 - (score * 140);
+                const opacity = score > 0.3 ? (score * 0.4) : 0; // Só mostra destaque se houver risco mínimo
+                heatmapHtml += `<div class="heatmap-segment" style="background: hsla(${hue}, 100%, 50%, ${opacity})"></div>`;
+            });
+        }
+        heatmapHtml += '</div>';
+
+        specContainer.innerHTML = `
+            <div class="spec-wrapper">
+                <img src="/tmp/${specName}?t=${timestamp}" alt="Espectrograma de Mel">
+                ${heatmapHtml}
+            </div>
+        `;
     }
 
     // Scroll automático suave para os resultados

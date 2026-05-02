@@ -409,3 +409,30 @@ main {
     font-family: monospace;
 }
 
+/* XAI Heatmap Overlay */
+.spec-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.heatmap-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    pointer-events: none;
+}
+
+.heatmap-segment {
+    flex: 1;
+    height: 100%;
+    transition: background 0.5s ease;
+    border-right: 1px solid rgba(255,255,255,0.05);
+}
+
+.heatmap-segment:hover {
+    border: 1px solid rgba(255,255,255,0.3);
+}

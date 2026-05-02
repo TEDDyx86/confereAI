@@ -65,11 +65,29 @@ def run_inference(audio_path, fallback_model_name="HyperMoon/wav2vec2-base-960h-
         
         fraud_prob = scores[0][fraud_idx].item()
         
+        # --- NOVO: Análise Temporal (XAI) ---
+        temporal_scores = []
+        segment_duration = 1.0  # 1 segundo
+        samples_per_segment = int(segment_duration * 16000)
+        
+        for i in range(0, len(audio), samples_per_segment):
+            segment = audio[i : i + samples_per_segment]
+            if len(segment) < samples_per_segment // 2: continue # Ignora restos muito pequenos
+            
+            seg_inputs = feature_extractor(segment, sampling_rate=16000, return_tensors="pt", padding=True)
+            with torch.no_grad():
+                seg_logits = model(**seg_inputs).logits
+                seg_probs = torch.softmax(seg_logits, dim=-1)
+                seg_fraud_prob = seg_probs[0][fraud_idx].item()
+                temporal_scores.append(round(seg_fraud_prob, 3))
+        # ------------------------------------
+
         results = {
             "model": model_name,
             "prediction": label.upper(),
             "confidence": confidence,
             "deepfake_probability": fraud_prob,
+            "temporal_scores": temporal_scores, # Novo campo para XAI
             "verdict": "SPOOF" if is_fraud else "BONAFIDE",
             "metadata": {
                 "id2label": id2label,
